@@ -58,9 +58,9 @@ public class RealMainActivity extends AppCompatActivity {
             prefs.edit().putBoolean("mainSwitch", newState).apply();
 
             if (newState) {
-                btnToggle.setImageResource(R.drawable.enable);
-            } else {
                 btnToggle.setImageResource(R.drawable.disable);
+            } else {
+                btnToggle.setImageResource(R.drawable.enable);
             }
         });
 
