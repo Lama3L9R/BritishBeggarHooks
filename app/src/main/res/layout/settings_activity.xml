@@ -1,0 +1,175 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_bg">
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/enableButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="40dp"
+
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_media_play"
+        app:tint="@android:color/black"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="340dp"
+        android:layout_height="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        app:cardBackgroundColor="#2d2f31"
+        app:cardCornerRadius="20dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="17dp"
+
+
+                android:text="Target Information"
+                android:textColor="#bbbbbb"
+                android:textFontWeight="30"
+                android:textSize="20sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="69dp"
+                android:text="Target Version"
+
+
+                android:textColor="#bbbbbb"
+                android:textFontWeight="15"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:id="@+id/versionStringDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="88dp"
+                android:text="Loading..."
+
+
+                android:textColor="#bbbbbb"
+                android:textFontWeight="30"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="134dp"
+                android:text="Capability"
+
+
+                android:textColor="#bbbbbb"
+                android:textFontWeight="15"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:id="@+id/loadingVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="153dp"
+                android:text="Loading..."
+                android:drawablePadding="10dp"
+
+                android:visibility="visible"
+
+                android:textFontWeight="30"
+                android:textSize="20sp"
+                android:textColor="#bbbbbb"/>
+
+            <TextView
+                android:id="@+id/versionOK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="153dp"
+                android:text="Full Support"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/baseline_check_circle_outline_24"
+
+                android:visibility="invisible"
+
+                android:textFontWeight="30"
+                android:textSize="20sp"
+                android:textColor="#57a957"/>
+
+            <TextView
+                android:id="@+id/versionFailed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="153dp"
+                android:drawableRight="@drawable/error"
+                android:drawablePadding="10dp"
+                android:text="No Support"
+
+                android:textColor="#ff6b68"
+
+
+                android:textFontWeight="30"
+                android:textSize="20sp"
+                android:visibility="invisible" />
+
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="275dp"
+        app:startIconDrawable="@drawable/weburl"
+        android:hint="Custom API Address">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="340dp"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+</RelativeLayout>
