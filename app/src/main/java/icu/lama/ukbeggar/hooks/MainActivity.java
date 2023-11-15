@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 .setMessage(R.string.door_open_hint)
                 .setPositiveButton("ACK", (di, id) -> { }).show();
     }
-    public boolean iWillObeyTheRules() {
+    public static boolean iWillObeyTheRules() {
         final String[] RULES = new String[] {
                 "You MUST obey the following rules to use this software:",
 

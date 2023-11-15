@@ -10,7 +10,7 @@ public class XpMain implements IXposedHookLoadPackage {
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
-        if (TARGET_PACKAGE.equals(loadPackageParam.packageName)) {
+        if (TARGET_PACKAGE.equals(loadPackageParam.packageName) && MainActivity.iWillObeyTheRules()) {
             try {
                 System.loadLibrary("narchook");
             } catch (Throwable e) {
