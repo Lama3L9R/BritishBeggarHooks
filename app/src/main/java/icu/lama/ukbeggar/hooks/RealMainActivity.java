@@ -1,22 +1,16 @@
 package icu.lama.ukbeggar.hooks;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class RealMainActivity extends AppCompatActivity {
-    public static String supportedVersion = "5.1.3";
-
     public static String arcVersion = "Error";
     public static VersionType versionType;
 
@@ -24,48 +18,44 @@ public class RealMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (!MainActivity.iWillObeyTheRules()) {
+            this.finish();
+        }
+
+        NArcHook.init();
         setContentView(R.layout.settings_activity);
 
-        final SharedPreferences prefs = getSharedPreferences("icu.lama.ukbeggar.hooks_preferences", Context.MODE_PRIVATE);
+        final Toolbar appbar = this.findViewById(R.id.appbar);
+        appbar.setTitle(R.string.app_name);
 
-        try {
-            PackageInfo verInfo = this.getPackageManager().getPackageInfo("moe.low.arc", 0);
 
-            versionType = verInfo.versionName.contains("c") ? VersionType.CHINA : VersionType.PLAYSTORE;
-            arcVersion = verInfo.versionName.replace("c", "");
-        } catch (PackageManager.NameNotFoundException e) {
-            final TextView failed = this.findViewById(R.id.versionFailed);
-            failed.setVisibility(View.VISIBLE);
-        }
+        this.findViewById(R.id.ui_nav_settings).setOnClickListener(v -> {
+            final Fragment currentFrag = ((FragmentContainerView) findViewById(R.id.fragment_settings_view)).getFragment();
+            if (currentFrag instanceof FragmentSettingsOptions) return;
 
-        final TextView loading = this.findViewById(R.id.loadingVersion);
-        loading.setVisibility(View.INVISIBLE);
+            getSupportFragmentManager().beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .setCustomAnimations(R.anim.slide_in_r, R.anim.slide_out_r)
+                .replace(R.id.fragment_settings_view, new FragmentSettingsOptions())
+                .commit();
 
-        final TextView failed;
-        if (supportedVersion.equals(arcVersion)) {
-            failed = this.findViewById(R.id.versionOK);
-        } else {
-            failed = this.findViewById(R.id.versionFailed);
-        }
-        failed.setVisibility(View.VISIBLE);
-
-        final TextView versionDisplay = this.findViewById(R.id.versionStringDisplay);
-        versionDisplay.setText(arcVersion + (versionType == VersionType.PLAYSTORE ? " Playstore" : ""));
-
-        final FloatingActionButton btnToggle = this.findViewById(R.id.enableButton);
-        btnToggle.setOnClickListener(it -> {
-            boolean newState = !prefs.getBoolean("mainSwitch", false);
-            prefs.edit().putBoolean("mainSwitch", newState).apply();
-
-            if (newState) {
-                btnToggle.setImageResource(R.drawable.disable);
-            } else {
-                btnToggle.setImageResource(R.drawable.enable);
-            }
+            final BottomNavigationView navbar = this.findViewById(R.id.nav_view);
+            navbar.setSelectedItemId(R.id.ui_nav_settings);
         });
 
+        this.findViewById(R.id.ui_nav_dashboard).setOnClickListener(v -> {
+            final Fragment currentFrag = ((FragmentContainerView) findViewById(R.id.fragment_settings_view)).getFragment();
+            if (currentFrag instanceof FragmentSettingsDashboard) return;
+
+            getSupportFragmentManager().beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setCustomAnimations(R.anim.slide_in_l, R.anim.slide_out_l)
+                .replace(R.id.fragment_settings_view, new FragmentSettingsDashboard())
+                .commit();
+
+            final BottomNavigationView navbar = this.findViewById(R.id.nav_view);
+            navbar.setSelectedItemId(R.id.ui_nav_dashboard);
+        });
     }
-
-
 
 }

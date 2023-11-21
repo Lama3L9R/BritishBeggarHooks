@@ -1,0 +1,73 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreference
+        app:key="master_sw"
+        app:title="Master Switch"
+        app:defaultValue="true" />
+
+    <PreferenceCategory app:title="Spoof device ID">
+
+        <SwitchPreferenceCompat
+            app:key="enable_fake_device_id"
+            app:title="Enable fake device ID" />
+        <EditTextPreference
+            app:dependency="enable_fake_device_id"
+            app:key="fake_device_id"
+            app:title="Fake device ID"
+            app:summary="Leave blank for random" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Custom API">
+
+        <SwitchPreferenceCompat
+            app:key="enable_custom_api"
+            app:title="Enable URL overriding" />
+        <EditTextPreference
+            app:dependency="enable_custom_api"
+            app:key="custom_api_v2"
+            app:title="Custom API URL"
+            app:summaryOff="Using official API"
+            app:summaryOn="Using custom API"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Advanced">
+
+        <SwitchPreferenceCompat
+            app:key="enable_advanced"
+            app:title="Enable advanced options"
+            app:summary="WARNING: Do not enable this unless you know what you are doing."/>
+
+        <!-- vsetopt hooking settings -->
+        <ListPreference
+            app:dependency="enable_advanced"
+            app:key="hooking_method_vsetopt"
+            app:title="Override vsetopt hooking"
+            app:summary="Override default hooking method for CURL_vsetopt."
+            app:entryValues="@array/hooking_methods" />
+
+        <EditTextPreference
+            app:dependency="enable_advanced"
+            app:key="vsetopt_override"
+            app:title="Hooking parameter for vsetopt"
+            app:summary="Pattern (Hexadecimal no split) or offset (Begin with 0x) or exported name" />
+
+        <!-- setDeviceId hooking settings -->
+        <ListPreference
+            app:dependency="enable_advanced"
+            app:key="hooking_method_setdeviceid"
+            app:title="Override vsetopt hooking"
+            app:summary="Override default hooking method for CURL_vsetopt."
+            app:entryValues="@array/hooking_methods" />
+
+        <EditTextPreference
+            app:dependency="enable_advanced"
+            app:key="setdeviceid_override"
+            app:title="Hooking parameter for setdeviceid"
+            app:summary="Pattern (Hexadecimal no split) or offset (Begin with 0x) or exported name" />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
