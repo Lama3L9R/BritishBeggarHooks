@@ -5,6 +5,10 @@
         app:title="Master Switch"
         app:defaultValue="true" />
 
+    <SwitchPreferenceCompat
+        app:key="disable_ssl_pinning"
+        app:title="Disable SSL Pinning" />
+
     <PreferenceCategory app:title="Spoof device ID">
 
         <SwitchPreferenceCompat

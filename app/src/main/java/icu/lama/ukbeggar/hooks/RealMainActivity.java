@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import icu.lama.narchook.NArcHook;
+
 public class RealMainActivity extends AppCompatActivity {
     public static String arcVersion = "Error";
     public static VersionType versionType;

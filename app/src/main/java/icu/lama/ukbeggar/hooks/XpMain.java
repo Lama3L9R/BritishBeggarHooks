@@ -7,13 +7,15 @@ import android.os.Bundle;
 import android.util.Log;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
-import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
+import icu.lama.narchook.CURLHacks;
+import icu.lama.narchook.FakeDeviceID;
+import icu.lama.narchook.NArcHook;
 
 public class XpMain implements IXposedHookLoadPackage {
     private static final String TARGET_PACKAGE = "moe.low.arc";
+    private static final String SELF_PACKAGE = "icu.lama.ukbeggar.hooks";
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
@@ -24,12 +26,32 @@ public class XpMain implements IXposedHookLoadPackage {
                 return;
             }
 
-            String fakeDeviceID =  prefs.getString("fake_device_id", "");
-            Log.i("XpMain", "Test fakedevice id read: " + fakeDeviceID);
-
             try {
                 HookUtils.setup(loadPackageParam.classLoader);
                 NArcHook.init();
+
+                if (prefs.getBoolean("disable_ssl_pinning", false)) {
+                    Log.i("XpMain", "Disabling SSL pinning");
+                    CURLHacks.toggleFeature(true);
+                }
+
+                if (prefs.getBoolean("enable_fake_device_id", false)) {
+                    Log.i("XpMain", "Enabling fake device id");
+
+                    String fakeDeviceIDValue = prefs.getString("fake_device_id", "");
+                    if (fakeDeviceIDValue.isEmpty()) {
+                        Log.e("XpMain", "Fake device id is empty! Generating a random one.");
+
+                        FakeDeviceID.prepareRandom((int) (((int) (System.currentTimeMillis() ^ 0xCA0ADA) * (Math.round(Math.random() * 100))) >> 14));
+                        fakeDeviceIDValue = FakeDeviceID.randomDeviceID();
+                        prefs.edit().putString("fake_device_id", fakeDeviceIDValue).apply();
+
+                        Log.i("XpMain", "Generated fake device id: " + fakeDeviceIDValue);
+                    }
+
+                    FakeDeviceID.setFakeDeviceID(fakeDeviceIDValue);
+                    FakeDeviceID.toggleFeature(true);
+                }
 
                 if (NArcHook.getVersion() != NArcHook.NARCHOOK_API_VERSION) {
                     Log.e("XpMain", "API version mismatch! Expected: " + NArcHook.NARCHOOK_API_VERSION + " Got: " + NArcHook.getVersion() + ". Abort!");
@@ -48,16 +70,8 @@ public class XpMain implements IXposedHookLoadPackage {
                     Activity target = (Activity) param.thisObject;
                     PackageInfo info = target.getApplicationContext().getPackageManager().getPackageInfo("moe.low.arc", 0);
 
-                    int version;
-
-                    if (info.versionName.contains("c")) {
-                        version = NArcHook.ARCAEA_VERSION_CHINA;
-                    } else {
-                        version = NArcHook.ARCAEA_VERSION_PLAYSTORE;
-                    }
-
-                    NArcHook.enable(true);
-                    NArcHook.setHookTarget(version);
+                    CURLHacks.toggleFeature(true);
+                    FakeDeviceID.toggleFeature(true);
 
                     Log.i("XpMain", "Hook enabled! Target version is: " + info.versionName);
                 }, Bundle.class);
@@ -78,6 +92,14 @@ public class XpMain implements IXposedHookLoadPackage {
             } catch (Throwable t) {
                 Log.e("XpMain", "Failed to hook AppActivity", t);
             }
+        }
+
+        if (SELF_PACKAGE.equals(loadPackageParam.packageName)) {
+            HookUtils.setup(loadPackageParam.classLoader);
+
+            HookUtils.onEnter("icu.lama.ukbeggar.hooks.FragmentSettingsDashboard#lsposedExists", (param, args) -> {
+                param.setResult(true);
+            });
         }
     }
 }

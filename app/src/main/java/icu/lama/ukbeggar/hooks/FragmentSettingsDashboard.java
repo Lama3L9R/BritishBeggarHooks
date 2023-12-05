@@ -44,22 +44,18 @@ public class FragmentSettingsDashboard extends Fragment {
             failed.setVisibility(View.VISIBLE);
         }
 
-        final String supportedVer = NArcHook.getTargetVersion();
-
         final TextView loading = getView().findViewById(R.id.loadingVersion);
         loading.setVisibility(View.INVISIBLE);
 
         final TextView failed;
-        if (NArcHook.isFeatureSupported(NArcHook.FEAT_HOOK_SEARCHING)) {
+        if (lsposedExists()) {
             failed = getView().findViewById(R.id.versionOK);
             failed.setText(R.string.generic_hooking_enabled);
         } else {
-            if (supportedVer.equals(RealMainActivity.arcVersion)) {
-                failed = getView().findViewById(R.id.versionOK);
-            } else {
-                failed = getView().findViewById(R.id.versionFailed);
-            }
+            failed = getView().findViewById(R.id.versionFailed);
+            failed.setText(R.string.no_lsp_found);
         }
+
         failed.setVisibility(View.VISIBLE);
 
         final TextView versionDisplay = getView().findViewById(R.id.versionStringDisplay);
@@ -82,5 +78,9 @@ public class FragmentSettingsDashboard extends Fragment {
                 btnToggle.setImageResource(R.drawable.enable);
             }
         });
+    }
+
+    public static boolean lsposedExists() {
+        return false;
     }
 }
