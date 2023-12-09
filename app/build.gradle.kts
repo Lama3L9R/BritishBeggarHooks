@@ -8,8 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "icu.lama.ukbeggar.hooks"
-        minSdk = 28
-        targetSdk = 33
+        minSdk = 23
         versionCode = 1
         versionName = "1.0"
 
@@ -49,6 +48,5 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:2.5.3")
     implementation("androidx.preference:preference:1.2.0")
 
-    compileOnly(files("libs/compileOnly/xposed-api-82_compileonly.jar"))
-
+    compileOnly("de.robv.android.xposed:api:82")
 }
