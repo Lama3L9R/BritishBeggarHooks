@@ -20,7 +20,7 @@ public class XpMain implements IXposedHookLoadPackage {
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
         if (TARGET_PACKAGE.equals(loadPackageParam.packageName)) {
-            XSharedPreferences prefs = new XSharedPreferences("icu.lama.ukbeggar.hooks", "preferences");
+            XSharedPreferences prefs = new XSharedPreferences("icu.lama.ukbeggar.hooks");
             if (!prefs.getBoolean("master_sw", true)) {
                 Log.i("XpMain", "Master switch is off. Abort!");
                 return;

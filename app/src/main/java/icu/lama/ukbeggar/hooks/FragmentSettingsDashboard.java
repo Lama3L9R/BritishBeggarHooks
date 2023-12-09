@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class FragmentSettingsDashboard extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        final SharedPreferences prefs = getActivity().getSharedPreferences("icu.lama.ukbeggar.hooks_preferences", Context.MODE_PRIVATE);
+        final SharedPreferences prefs = getActivity().getSharedPreferences(getActivity().getPackageName() + "_preferences", Context.MODE_WORLD_READABLE);
         try {
             PackageInfo verInfo = getActivity().getPackageManager().getPackageInfo("moe.low.arc", 0);
 
