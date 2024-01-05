@@ -12,7 +12,7 @@ import icu.lama.ukbeggar.hooks.EULA;
 public class NativeInjection extends CodeModifier {
 
     public NativeInjection() {
-        super(EULA.TARGET_NAME);
+        super(EULA.getTargetPackage());
     }
 
     @Override

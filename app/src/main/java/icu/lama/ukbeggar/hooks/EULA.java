@@ -1,9 +1,6 @@
 package icu.lama.ukbeggar.hooks;
 
 public class EULA {
-
-    public static final String TARGET_NAME = "";
-
     public static boolean iAgreeAndWillObey() {
         final String[] RULES = new String[] {
                 "You MUST obey the following rules to use this software:",
@@ -38,7 +35,13 @@ public class EULA {
 
         final String HINT_A = "Make this function return true to represent that you have read the rules and will obey them.";
         final String HINT_B = "If you are using smali editor, make this function return 1 (1 means true)";
-        final String HINT_C = "Don't forget to change TARGET_NAME to beggar game's package name.";
+        final String HINT_C = "Don't forget to change getTargetPackage return value to beggar game's package name.";
         return false;
+    }
+
+    public static String getTargetPackage() {
+        String target = "<ReplaceMe>";
+
+        return target;
     }
 }

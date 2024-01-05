@@ -11,7 +11,7 @@ import icu.lama.ukbeggar.hooks.HookUtils;
 public class CrashreportBlocker extends CodeModifier {
 
     public CrashreportBlocker() {
-        super(EULA.TARGET_NAME);
+        super(EULA.getTargetPackage());
     }
 
     @Override
