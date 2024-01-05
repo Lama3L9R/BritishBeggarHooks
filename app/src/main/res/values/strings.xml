@@ -4,13 +4,13 @@
 
     <string name="title_activity_real_main">RealMainActivity</string>
 
-    <string name="door_open_hint">\nWrit your acknowledgement to the heart.\n\nSubmit to confine.\n\nThe door shall be open.</string>
+    <string name="door_open_hint">\nWrit your acknowledgement to the heart.\n\nSubmit to confine.\n\nThe door shall be opened.</string>
 
     <string name="ui_info">Target Information</string>
     <string name="ui_info_lable_version">Target Version</string>
     <string name="ui_info_lable_capability">Capability</string>
 
-    <string name="generic_hooking_enabled">Generic Hooking Enabled</string>
+    <string name="generic_hooking_supported">Generic Hooking Supported</string>
     <string name="capability_full_support">Full Support</string>
     <string name="capability_no_support">No Support</string>
 

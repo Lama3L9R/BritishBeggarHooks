@@ -51,7 +51,7 @@ public class FragmentSettingsDashboard extends Fragment {
         final TextView failed;
         if (lsposedExists()) {
             failed = getView().findViewById(R.id.versionOK);
-            failed.setText(R.string.generic_hooking_enabled);
+            failed.setText(R.string.generic_hooking_supported);
         } else {
             failed = getView().findViewById(R.id.versionFailed);
             failed.setText(R.string.no_lsp_found);
@@ -66,19 +66,6 @@ public class FragmentSettingsDashboard extends Fragment {
                         getString(R.string.arc_version_china) :
                         getString(R.string.arc_version_playstore))
         ));
-
-        final FloatingActionButton btnToggle = getView().findViewById(R.id.enableButton);
-
-        btnToggle.setOnClickListener(it -> {
-            boolean newState = !prefs.getBoolean("mainSwitch", false);
-            prefs.edit().putBoolean("mainSwitch", newState).apply();
-
-            if (newState) {
-                btnToggle.setImageResource(R.drawable.disable);
-            } else {
-                btnToggle.setImageResource(R.drawable.enable);
-            }
-        });
     }
 
     public static boolean lsposedExists() {

@@ -20,7 +20,7 @@ public class RealMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!MainActivity.iWillObeyTheRules()) {
+        if (!EULA.iAgreeAndWillObey()) {
             this.finish();
         }
 

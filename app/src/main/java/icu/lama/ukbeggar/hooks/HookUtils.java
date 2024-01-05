@@ -6,11 +6,11 @@ import de.robv.android.xposed.XposedHelpers;
 public class HookUtils {
     private static ClassLoader loader;
 
-    interface CallbackOnEnter {
+    public interface CallbackOnEnter {
         void onEnter(XC_MethodHook.MethodHookParam param, Object... args) throws Throwable;
     }
 
-    interface CallbackOnLeave {
+    public interface CallbackOnLeave {
         void onLeave(XC_MethodHook.MethodHookParam param, Object... args) throws Throwable;
     }
 

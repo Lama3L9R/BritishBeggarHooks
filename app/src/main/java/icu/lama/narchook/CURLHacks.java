@@ -35,4 +35,10 @@ public class CURLHacks {
      */
     public static native void dumpCert(String path);
     public static native void toggleFeature(boolean status);
+
+    /**
+     * Make all certificate trusted (Ex. self-signed certificate).
+     * @param status True to trust all certificate.
+     */
+    public static native void approveAllCertificate(boolean status);
 }
